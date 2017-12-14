@@ -1,6 +1,8 @@
 from tkinter import *
 from math import *
 from tkinter.messagebox import *
+from decimal import Decimal, getcontext
+import math
 root = Tk()
 
 
@@ -120,19 +122,58 @@ def combine():
 
 #######################total costs paramettree
 def computations():
-    skkra = int(llbnn1.get())+int(llbnn2.get())+int(llbnn3.get())+int(lbr3.get())+int(st1.get())+int(st2.get())+int(st3.get())+int(st4.get())+int(ble8.get())+int(we3.get())
+    skkra = int(llbnn1.get())*4+int(llbnn2.get())*4+int(llbnn3.get())*4+int(lbr3.get())*4+int(st1.get())+int(st2.get())+int(st3.get())+int(st4.get())+int(ble8.get())+int(we3.get())
+    skra.delete(0, END)
     skra.insert(0, skkra)
+    x=1.09
 
-    q = (30000 + 15000) / (1.09) + ((33000 + 15000) / 1.09) + ((36300 + 15000) / 1.09) + ((39930 + 15000) / (1.09))
-    skra2.insert(0,q)
+    ad = (30000 + 15000) / (math.pow(x,1))
+    ac = ((33000 + 15000) / (math.pow(x,2)))
+    av = ((36300 + 15000) /  (math.pow(x,3)))
+    ag = ((39930 + 15000) /  (math.pow(x,4)))
 
-    npv=q - skkra#########net present value
-    npv2.insert(0, npv)
+    q = ad+ac+av+ag
 
-    roi = (q - skkra)/skkra#############return on investment
+    ###########compute bep
+    de =3+((54930-475)/54930)
+    bep2.delete(0, END)
+    bep2.insert(0, de)
+
+
+    summation=30000+15000+33000+15000+36300+15000+39930+15000 ##getting total benefits
+    skra2.delete(0, END)
+    skra2.insert(0,summation)
+
+    #########net present value
+    npv2.delete(0, END)
+    npv2.insert(0, q)
+
+    roi = ((summation - skkra)/skkra)*100#############return on investment
+    npv3.delete(0, END)
     npv3.insert(0, roi)
 
 
+
+
+
+    #################total net present costs
+    aa1=int(llbnn1.get())
+    aa2=int(llbnn2.get())
+    aa3=int(llbnn3.get())
+    aa4=int(lbr3.get())
+    nppv = skkra/(math.pow(x, 1))+(aa1+aa2+aa3+aa4)/(math.pow(x, 2))+(aa1+aa2+aa3+aa4)/(math.pow(x, 3))+(aa1+aa2+aa3+aa4)/(math.pow(x, 4))
+    gss1.delete(0, END)
+    gss1.insert(0, nppv)
+
+    ############pv of the project
+    y=Decimal(npv2.get())
+    u=Decimal(gss1.get())
+    y1= float(y)
+    u1 =float(u)
+
+    ppv = y1-u1
+    pvv2.delete(0, END)
+    pvv2.insert(0, ppv)
 
 
 def presval():
@@ -164,25 +205,25 @@ group2= LabelFrame(g, text="NUMBER OF PERSOMELL")
 group2.grid(row=0, column = 1)
 
 en1= Entry(group2)
-en1.insert(END, '0')
+en1.insert(END, '2')
 en1.grid(row=1, pady =15, padx=15)
 en2= Entry(group2)
-en2.insert(END, '0')
+en2.insert(END, '4')
 en2.grid(row=2, pady =15, padx=15)
 en3= Entry(group2)
-en3.insert(END, '0')
+en3.insert(END, '1')
 en3.grid(row=3, pady =15, padx=15)
 en4= Entry(group2)
-en4.insert(END, '0')
+en4.insert(END, '1')
 en4.grid(row=4, pady =15, padx=15)
 en5= Entry(group2)
-en5.insert(END, '0')
+en5.insert(END, '1')
 en5.grid(row=5, pady =15, padx=15)
 en6= Entry(group2)
-en6.insert(END, '0')
+en6.insert(END, '1')
 en6.grid(row=6, pady =15, padx=15)
 en7= Entry(group2)
-en7.insert(END, '0')
+en7.insert(END, '1')
 en7.grid(row=7, pady =15, padx=15)
 
 ##entry pane3
@@ -190,25 +231,25 @@ group1= LabelFrame(g, text="HOURS WORKED")
 group1.grid(row=0, column = 2)
 
 e1= Entry(group1)
-e1.insert(END, '0')
+e1.insert(END, '400')
 e1.grid(row=1, pady =15, padx=15)
 e2= Entry(group1)
-e2.insert(END, '0')
+e2.insert(END, '250')
 e2.grid(row=2, pady =15, padx=15)
 e3= Entry(group1)
-e3.insert(END, '0')
+e3.insert(END, '200')
 e3.grid(row=3, pady =15, padx=15)
 e4= Entry(group1)
-e4.insert(END, '0')
+e4.insert(END, '50')
 e4.grid(row=4, pady =15, padx=15)
 e5= Entry(group1)
-e5.insert(END, '0')
+e5.insert(END, '100')
 e5.grid(row=5, pady =15, padx=15)
 e6= Entry(group1)
-e6.insert(END, '0')
+e6.insert(END, '15')
 e6.grid(row=6, pady =15, padx=15)
 e7= Entry(group1)
-e7.insert(END, '0')
+e7.insert(END, '250')
 e7.grid(row=7, pady =15, padx=15)
 
 
@@ -217,25 +258,25 @@ group3= LabelFrame(g, text="RATE PER HOUR")
 group3.grid(row=0, column = 3)
 
 entr1= Entry(group3)
-entr1.insert(END, '0')
+entr1.insert(END, '50')
 entr1.grid(row=1, pady =15, padx=15)
 entr2= Entry(group3)
-entr2.insert(END, '0')
+entr2.insert(END, '35')
 entr2.grid(row=2, pady =15, padx=15)
 entr3= Entry(group3)
-entr3.insert(END, '0')
+entr3.insert(END, '40')
 entr3.grid(row=3, pady =15, padx=15)
 entr4= Entry(group3)
-entr4.insert(END, '0')
+entr4.insert(END, '50')
 entr4.grid(row=4, pady =15, padx=15)
 entr5= Entry(group3)
-entr5.insert(END, '0')
+entr5.insert(END, '50')
 entr5.grid(row=5, pady =15, padx=15)
 entr6= Entry(group3)
-entr6.insert(END, '0')
+entr6.insert(END, '45')
 entr6.grid(row=6, pady =15, padx=15)
 entr7= Entry(group3)
-entr7.insert(END, '0')
+entr7.insert(END, '15')
 entr7.grid(row=7, pady =15, padx=15)
 
 #reults summation pane
@@ -290,21 +331,21 @@ ser = LabelFrame(t, text="no of students", padx=5, pady=5)
 ser.grid(row=1, column =1)
 
 we = Entry(ser)
-we.insert(END, '0')
+we.insert(END, '1')
 we.grid(row=1, padx=15,pady=15 )
 
 ser1 = LabelFrame(t, text="rate per student", padx=5, pady=5)
 ser1.grid(row=1, column =2)
 
 we1 = Entry(ser1)
-we1.insert(END, '0')
+we1.insert(END, '3500')
 we1.grid(row=1, padx=15,pady=15 )
 
 ser2 = LabelFrame(t, text="number of sessions", padx=5, pady=5)
 ser2.grid(row=1, column =3)
 
 we2 = Entry(ser2)
-we2.insert(END, '0')
+we2.insert(END, '4')
 we2.grid(row=1, padx=15,pady=15 )
 
 ser3 = LabelFrame(t, text="total", padx=5, pady=5)
@@ -340,38 +381,38 @@ qtyf=LabelFrame(dc, text="Quantity")
 qtyf.grid(row=1, column=1)
 
 qe1=Entry(qtyf)
-qe1.insert(END, '0')
+qe1.insert(END, '1')
 qe1.grid(row=1,padx=15, pady=15)
 
 qe2=Entry(qtyf)
-qe2.insert(END, '0')
+qe2.insert(END, '1')
 qe2.grid(row=2,padx=15, pady=15)
 
 qe3=Entry(qtyf)
-qe3.insert(END, '0')
+qe3.insert(END, '1')
 qe3.grid(row=3,padx=15, pady=15)
 
 qe4=Entry(qtyf)
-qe4.insert(END, '0')
+qe4.insert(END, '7')
 qe4.grid(row=4,padx=15, pady=15)
 
 rat=LabelFrame(dc, text="Rate")
 rat.grid(row=1, column=2)
 
 re1=Entry(rat)
-re1.insert(END, '0')
+re1.insert(END, '18700')
 re1.grid(row=1,padx=15, pady=15)
 
 re2=Entry(rat)
-re2.insert(END, '0')
+re2.insert(END, '1500')
 re2.grid(row=2,padx=15, pady=15)
 
 re3=Entry(rat)
-re3.insert(END, '0')
+re3.insert(END, '7500')
 re3.grid(row=3,padx=15, pady=15)
 
 re4=Entry(rat)
-re4.insert(END, '0')
+re4.insert(END, '950')
 re4.grid(row=4,padx=15, pady=15)
 
 
@@ -379,19 +420,19 @@ client=LabelFrame(dc, text="no of Clients")
 client.grid(row=1, column=3)
 
 ce=Entry(client)
-ce.insert(END, '0')
+ce.insert(END, '1')
 ce.grid(row=1,padx=15, pady=15)
 
 ce1=Entry(client)
-ce1.insert(END, '0')
+ce1.insert(END, '1')
 ce1.grid(row=2,padx=15, pady=15)
 
 ce2=Entry(client)
-ce2.insert(END, '0')
+ce2.insert(END, '1')
 ce2.grid(row=3,padx=15, pady=15)
 
 ce3=Entry(client)
-ce3.insert(END, '0')
+ce3.insert(END, '1')
 ce3.grid(row=4,padx=15, pady=15)
 
 SUBT=LabelFrame(dc, text="sub totals")
@@ -432,22 +473,22 @@ aoc1=LabelFrame(personell, text="number")
 aoc1.grid(row=1, column=1)
 
 lbn1 =Entry(aoc1)
-lbn1.insert(END, '0')
+lbn1.insert(END, '2')
 lbn1.grid(row=1, padx=10, pady=15)
 
 lbn2= Entry(aoc1)
-lbn2.insert(END, '0')
+lbn2.insert(END, '1')
 lbn2.grid(row=2, padx=10, pady=15)
 
 aoc2=LabelFrame(personell, text="rate")
 aoc2.grid(row=1, column=2)
 
 lbr1=Entry(aoc2)
-lbr1.insert(END, '0')
+lbr1.insert(END, '4375')
 lbr1.grid(row=1, padx=10, pady=15)
 
 lbr2=Entry(aoc2)
-lbr2.insert(END, '0')
+lbr2.insert(END, '300')
 lbr2.grid(row=2, padx=10, pady=15)
 
 aoc3=LabelFrame(personell, text="Total")
@@ -485,30 +526,30 @@ lbnn=LabelFrame(hw, text="Number")
 lbnn.grid(row=1, column=1)
 
 lbnn1=Entry(lbnn)
-lbnn1.insert(END,'0')
+lbnn1.insert(END,'1')
 lbnn1.grid(row=1, padx=10, pady=15)
 
 lbnn2=Entry(lbnn)
-lbnn2.insert(END, '0')
+lbnn2.insert(END, '1')
 lbnn2.grid(row=2, padx=10, pady=15)
 
 lbnn3=Entry(lbnn)
-lbnn3.insert(END, '0')
+lbnn3.insert(END, '1')
 lbnn3.grid(row=3, padx=10, pady=15)
 
 amt=LabelFrame(hw, text="amount")
 amt.grid(row=1, column=2)
 
 lbn11=Entry(amt)
-lbn11.insert(END, '0')
+lbn11.insert(END, '995')
 lbn11.grid(row=1, padx=10, pady=15)
 
 lbn22=Entry(amt)
-lbn22.insert(END,'0')
+lbn22.insert(END,'525')
 lbn22.grid(row=2, padx=10, pady=15)
 
 lbn33=Entry(amt)
-lbn33.insert(END, '0')
+lbn33.insert(END, '3300')
 lbn33.grid(row=3, padx=10, pady=15)
 
 
@@ -528,32 +569,53 @@ hw2 = LabelFrame(root, text="results from backend computations")
 hw2.grid(row=2, column =1)
 
 compu=Button(hw2, text="calculate", command=computations)
-compu.grid(row=1, padx=15, pady=20)
+compu.grid(row=1, padx=15, pady=10)
 
 lb=Label(hw2, text="Total Costs")
 lb.grid(row=1, column=1, padx=7, pady=7)
 
 skra=Entry(hw2)
-skra.grid(row=1, column=2, padx=15,pady=15)
+skra.grid(row=1, column=2, padx=5,pady=5)
 
 
-lb1=Label(hw2, text="Total  NPV")
-lb1.grid(row=2, column=1, padx=15,pady=15)
+lb1=Label(hw2, text="Total  Benefits")
+lb1.grid(row=2, column=1, padx=5,pady=5)
 
 skra2=Entry(hw2)
-skra2.grid(row=2, column=2, padx=15,pady=15)
+skra2.grid(row=2, column=2, padx=5,pady=5)
+
+gs1=Label(hw2, text="PV cost")
+gs1.grid(row=1, column=3, padx=15,pady=15)
+
+gss1=Entry(hw2)
+gss1.grid(row=1, column=4, padx=15, pady=15)
 
 
-gs=Label(hw2, text="N P V")
-gs.grid(row=3, column=1, padx=15,pady=15)
+
+gs=Label(hw2, text="PV benefit")
+gs.grid(row=2, column=3, padx=15,pady=15)
 
 gs2 = Label(hw2, text="R O I")
-gs2.grid(row=4, column=1, padx=15,pady=15)
+gs2.grid(row=4, column=1, padx=5,pady=5)
 
 npv2 = Entry(hw2)
-npv2.grid(row=3, column=2, padx=15,pady=15)
+npv2.grid(row=2, column=4, padx=5,pady=5)
 
 npv3 = Entry(hw2)
-npv3.grid(row=4, column=2, padx=15,pady=15)
+npv3.grid(row=4, column=2, padx=5,pady=5)
+
+bep1 =Label(hw2, text="BEP")
+bep1.grid(row=4, column=3, padx=5,pady=5)
+
+bep2 = Entry(hw2)
+bep2.grid(row=3, column=4, padx=5,pady=5)
+
+pvv0 = LabelFrame(root, text="pv")
+pvv0.grid(row =3, column =1)
+
+pvv=Label(pvv0, text="pv of the project")
+pvv.grid(row = 1, padx =15, pady=15)
+pvv2 = Entry(pvv0)
+pvv2.grid(row=1, column=1)
 
 root.mainloop()
